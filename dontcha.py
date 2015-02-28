@@ -3,21 +3,26 @@ from PIL import Image, ImageFont, ImageDraw
 import random
 
 def main():
+    #Right now this is for simple tests
     dontcha = Dontcha()
-    i = Image.new('RGB',(100,100), color='red')
+    i = Image.new('RGB',(600,200), color='red')
 
     draw = ImageDraw.Draw(i)
-    draw.text((10,10), 'test', font=dontcha.font)
+    draw.text((10,10), dontcha.generateWord(), font=dontcha.font)
 
     i.save('test.jpg', 'JPEG')
     #print(dir(dontcha._getText('apple')))#.save('test.jpg', 'JPEG')
 
 class Dontcha():
     def __init__(self):
-        self.font = PIL.ImageFont.truetype(filename='Pixel-UniCode.ttf')
+        #Creates a dontcha objet
+        self.font = PIL.ImageFont.truetype('Pixel-UniCode.ttf', 100)
         self._buildUnicodeCharList()
 
     def generateWord(self):
+        """Creates a new word between 10 and 20 characters in length using 
+        characters from self.chars
+        """
         length = random.randint(10,20)
 
         word = ""
@@ -29,6 +34,11 @@ class Dontcha():
         return word
 
     def _buildUnicodeCharList(self):
+        """Populates self.chars with the numeric representation of valid
+        unicode characters. This is done manually because unicode has undefined
+        gaps and blank characters that should not be used, so a simple rarnge
+        will not work.
+        """
         self.chars = list(range(0x21, 0x7E)) + \
                 list(range(0xA1, 0xAC))
 
