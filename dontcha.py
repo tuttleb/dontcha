@@ -1,6 +1,7 @@
 import PIL
 from PIL import Image, ImageFont, ImageDraw
 import random
+import string
 
 def main():
     #Right now this is for simple tests
@@ -21,14 +22,14 @@ class Dontcha():
 
     def generateWord(self):
         """Creates a new word between 10 and 20 characters in length using 
-        characters from self.chars
+        characters from string.ascii_letters
         """
         length = random.randint(10,20)
 
         word = ""
 
         for i in range(length):
-            c = chr(random.choice(self.chars))
+            c = random.choice(string.ascii_letters)
             word += c
 
         return word
